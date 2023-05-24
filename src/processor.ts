@@ -594,28 +594,32 @@ processor.run(new TypeormDatabase(), async (ctx) => {
                 try {
                   tokenInstance.uri = await erc1155Instance.uri(id);
                   tokens.set(tokenInstance.id, tokenInstance);
-                  throw new Error("Cannot fetch uri");
-                } catch (err) {
-                  // console.log(err);
+                  //throw new Error("Cannot fetch uri");
+                } 
+                // catch (err) {
+                //   // console.log(err);
+                // }
+                finally{
+                  tokenbalances.set(tokenInstance.id + to, new TokenBalance({
+                    id: tokenInstance.id + to,
+                    owner: to,
+                    token: tokenInstance,
+                    amount: idValues[index].toBigInt(),
+                    onauction: 0,
+                    onsale: 0
+                  }))
+  
+                  transactions.set(i.transaction.hash, new Transaction({
+                    id: i.transaction.hash,
+                    to,
+                    type: "NFTMinting",
+                    token: tokenInstance,
+                    time: BigInt(c.header.timestamp),
+                    tokenamount: idValues[index].toBigInt()
+                  }))
                 }
 
-                tokenbalances.set(tokenInstance.id + to, new TokenBalance({
-                  id: tokenInstance.id + to,
-                  owner: to,
-                  token: tokenInstance,
-                  amount: idValues[index].toBigInt(),
-                  onauction: 0,
-                  onsale: 0
-                }))
-
-                transactions.set(i.transaction.hash, new Transaction({
-                  id: i.transaction.hash,
-                  to,
-                  type: "NFTMinting",
-                  token: tokenInstance,
-                  time: BigInt(c.header.timestamp),
-                  tokenamount: idValues[index].toBigInt()
-                }))
+                
               }
               else {
                 let baluser1 = tokenbalances.get(tokenInstance.id + from);
@@ -692,28 +696,31 @@ processor.run(new TypeormDatabase(), async (ctx) => {
               try {
                 tokenInstance.uri = await erc1155Instance.uri(id);
                 tokens.set(tokenInstance.id, tokenInstance);
-                throw new Error("Cannot fetch uri");
-              } catch (err) {
+                //throw new Error("Cannot fetch uri");
+              } //catch (err) {
                 // console.log(err);
+              //}
+              finally{
+                tokenbalances.set(tokenInstance.id + to, new TokenBalance({
+                  id: tokenInstance.id + to,
+                  owner: to,
+                  token: tokenInstance,
+                  amount: value.toBigInt(),
+                  onauction: 0,
+                  onsale: 0
+                }))
+  
+                transactions.set(i.transaction.hash, new Transaction({
+                  id: i.transaction.hash,
+                  to,
+                  type: "NFTMinting",
+                  token: tokenInstance,
+                  time: BigInt(c.header.timestamp),
+                  tokenamount: value.toBigInt()
+                }))
               }
 
-              tokenbalances.set(tokenInstance.id + to, new TokenBalance({
-                id: tokenInstance.id + to,
-                owner: to,
-                token: tokenInstance,
-                amount: value.toBigInt(),
-                onauction: 0,
-                onsale: 0
-              }))
-
-              transactions.set(i.transaction.hash, new Transaction({
-                id: i.transaction.hash,
-                to,
-                type: "NFTMinting",
-                token: tokenInstance,
-                time: BigInt(c.header.timestamp),
-                tokenamount: value.toBigInt()
-              }))
+              
             }
             else {
               let baluser1 = tokenbalances.get(tokenInstance.id + from);
@@ -770,7 +777,8 @@ processor.run(new TypeormDatabase(), async (ctx) => {
             // if (!(from && to && tokenId)) {
             //   throw new Error("Incorrect event. Ignoring");
             // }
-          } catch (err) {
+          } 
+          catch (err) {
             //console.log(err);
             continue;
           }
@@ -811,10 +819,12 @@ processor.run(new TypeormDatabase(), async (ctx) => {
             try {
               tokenInstance.uri = await erc721Instance.tokenURI(tokenId);
               tokens.set(tokenInstance.id, tokenInstance);
-              throw new Error("Cannot fetch uri");
-            } catch (err) {
-              // console.log(err);
-            } finally {
+              //throw new Error("Cannot fetch uri");
+            } 
+            // catch (err) {
+            //   // console.log(err);
+            // } 
+            finally {
               tokenbalances.set(tokenInstance.id + to, new TokenBalance({
                 id: tokenInstance.id + to,
                 owner: to,
