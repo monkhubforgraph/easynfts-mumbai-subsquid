@@ -1,0 +1,1 @@
+# easynfts-mumbai-subsquid
