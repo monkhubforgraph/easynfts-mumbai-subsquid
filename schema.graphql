@@ -1,0 +1,61 @@
+type Token @entity {
+  id: ID!
+  creator: String #address
+  balances: [TokenBalance!]! @derivedFrom(field: "token")
+  uri: String
+  contractAddress: String
+  amountminted: BigInt
+  mintedTime: BigInt #epoch timestamp
+  txncount: Int
+  type: String
+}
+
+type TokenBalance @entity {
+  id: ID!
+  amount: BigInt!
+  token: Token!
+  owner: String! #address
+  onsale: Int!
+  onauction: Int!
+}
+
+type Transaction @entity {
+  id: ID!
+  order: Order
+  type: String
+  from: String #address
+  to: String #address
+  token: Token
+  ethamount: BigInt
+  tokenamount: BigInt
+  time: BigInt #epoch timestamp
+}
+
+type Order @entity {
+  id: ID!
+  createdBy: String! #addrss
+  stage: String!
+  type: String!
+  minprice: BigInt
+  price: BigInt!
+  token: Token!
+  remtokens: Int!
+  exptime: BigInt
+  orderSuccess: Boolean!
+  activity: [Transaction!] @derivedFrom(field: "order")
+}
+
+type MemberBalance @entity {
+  id: ID! #timestamp
+  balanceChange: BigInt
+  isCredit: Boolean #true = credit & false = debit
+  source: String #Sale or auction or null(in case of withdrawl)
+  order: Order
+  timestamp: BigInt
+}
+
+type Member @entity {
+  id: ID! #marketManagement contract address
+  isMarketplace: Boolean!
+  shopCreators: [String!]! #addresses allowed minting
+}
