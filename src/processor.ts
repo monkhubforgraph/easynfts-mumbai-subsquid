@@ -591,15 +591,15 @@ processor.run(new TypeormDatabase(), async (ctx) => {
                 }));
                 tokenInstance = tokens.get(i.address.toLocaleLowerCase() + "_" + id.toString());
                 assert(tokenInstance);
-                try {
-                  tokenInstance.uri = await erc1155Instance.uri(id);
-                  tokens.set(tokenInstance.id, tokenInstance);
-                  //throw new Error("Cannot fetch uri");
-                } 
+                // try {
+                //   tokenInstance.uri = await erc1155Instance.uri(id);
+                //   tokens.set(tokenInstance.id, tokenInstance);
+                //   //throw new Error("Cannot fetch uri");
+                // } 
                 // catch (err) {
                 //   // console.log(err);
                 // }
-                finally{
+                //finally{
                   tokenbalances.set(tokenInstance.id + to, new TokenBalance({
                     id: tokenInstance.id + to,
                     owner: to,
@@ -617,7 +617,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
                     time: BigInt(c.header.timestamp),
                     tokenamount: idValues[index].toBigInt()
                   }))
-                }
+                //}
 
                 
               }
@@ -693,14 +693,14 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
               tokenInstance = tokens.get(i.address.toLocaleLowerCase() + "_" + id.toString());
               assert(tokenInstance);
-              try {
-                tokenInstance.uri = await erc1155Instance.uri(id);
-                tokens.set(tokenInstance.id, tokenInstance);
-                //throw new Error("Cannot fetch uri");
-              } //catch (err) {
+              // try {
+              //   tokenInstance.uri = await erc1155Instance.uri(id);
+              //   tokens.set(tokenInstance.id, tokenInstance);
+              //   //throw new Error("Cannot fetch uri");
+              // } //catch (err) {
                 // console.log(err);
               //}
-              finally{
+              //finally{
                 tokenbalances.set(tokenInstance.id + to, new TokenBalance({
                   id: tokenInstance.id + to,
                   owner: to,
@@ -718,7 +718,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
                   time: BigInt(c.header.timestamp),
                   tokenamount: value.toBigInt()
                 }))
-              }
+              //}
 
               
             }
@@ -816,15 +816,15 @@ processor.run(new TypeormDatabase(), async (ctx) => {
             tokenInstance = tokens.get(i.address.toLocaleLowerCase() + "_" + tokenId.toString());
             assert(tokenInstance && tokenInstance.id);
             // if (i.address.toLocaleLowerCase() + "_" + tokenId.toString() == "0x33fc58f12a56280503b04ac7911d1eceebce179c_567") console.log("found event", i.transaction.hash);
-            try {
-              tokenInstance.uri = await erc721Instance.tokenURI(tokenId);
-              tokens.set(tokenInstance.id, tokenInstance);
-              //throw new Error("Cannot fetch uri");
-            } 
+            // try {
+            //   tokenInstance.uri = await erc721Instance.tokenURI(tokenId);
+            //   tokens.set(tokenInstance.id, tokenInstance);
+            //   //throw new Error("Cannot fetch uri");
+            // } 
             // catch (err) {
             //   // console.log(err);
             // } 
-            finally {
+            //finally {
               tokenbalances.set(tokenInstance.id + to, new TokenBalance({
                 id: tokenInstance.id + to,
                 owner: to,
@@ -842,7 +842,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
                 time: BigInt(c.header.timestamp),
                 tokenamount: BigInt(1)
               }))
-            }
+            //}
           }
           else {
             let baluser1 = tokenbalances.get(tokenInstance.id + from);
